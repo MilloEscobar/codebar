@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Add product</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<button ion-button secondary (click)="scan()">
+        Scan
+      </button>
+
+      <form (ngSubmit)="addProduct()" novalidate>
+
+    <ion-item [class.ng-is-invalid]="name.touched && !addPrductFrorm.name.valid" 
+              [class.ng-is-valid]="addPrductFrorm.name.valid">
+      <ion-label floating>Nombre</ion-label>
+      <ion-input requierd  type="text" name="name" 
+                (ionBlur)="nameValidate()"
+                [(ngModel)]="addPrductFrorm.name.value" 
+                #name="ngModel">   
+      </ion-input>
+    </ion-item>
+    <p ion-text padding-left padding-right class="no-margin" color="danger">
+      <span *ngIf="name.touched && !addPrductFrorm.name.valid">{{ addPrductFrorm.name.errorMessage }}</span>
+    </p>
+
+    <ion-item [class.ng-is-invalid]="price.touched && !addPrductFrorm.price.valid" 
+              [class.ng-is-valid]="addPrductFrorm.price.valid">
+      <ion-label floating>Precio</ion-label>
+      <ion-input requierd  type="number" name="price" 
+                (ionBlur)="priceValidate()"
+                [(ngModel)]="addPrductFrorm.price.value" 
+                #price="ngModel">   
+      </ion-input>
+    </ion-item>
+    <p ion-text padding-left padding-right class="no-margin" color="danger">
+      <span *ngIf="price.touched && !addPrductFrorm.price.valid">{{ addPrductFrorm.price.errorMessage }}</span>
+    </p>
+
+    <ion-item [class.ng-is-invalid]="quantity.touched && !addPrductFrorm.quantity.valid" 
+              [class.ng-is-valid]="addPrductFrorm.quantity.valid">
+      <ion-label floating>Cantidad</ion-label>
+      <ion-input requierd  type="number" name="quantity" 
+                (ionBlur)="quantityValidate()"
+                [(ngModel)]="addPrductFrorm.quantity.value" 
+                #quantity="ngModel">   
+      </ion-input>
+    </ion-item>
+    <p ion-text padding-left padding-right class="no-margin" color="danger">
+      <span *ngIf="quantity.touched && !addPrductFrorm.quantity.valid">{{addPrductFrorm.quantity.errorMessage}}</span>
+    </p>
+
+    <ion-item [class.ng-is-invalid]="id.touched && !addPrductFrorm.id.valid" 
+              [class.ng-is-valid]="addPrductFrorm.id.valid">
+      <ion-label floating>Codigo</ion-label>
+      <ion-input [class.ng-valid]="false" requierd  type="text" name="id" 
+                (ionBlur)="idValidate()"
+                [(ngModel)]="addPrductFrorm.id.value" 
+                #id="ngModel">
+      </ion-input>
+    </ion-item>
+    <p ion-text padding-left padding-right class="no-margin" color="danger">
+      <span *ngIf="id.touched && !addPrductFrorm.id.valid">{{addPrductFrorm.id.errorMessage}}</span></p>
+
+    <div padding>
+      <button ion-button full type="submit" block color="success"
+              [disabled]=" !addPrductFrorm.name.valid || !addPrductFrorm.price.valid || !addPrductFrorm.quantity.valid || !addPrductFrorm.id.valid ">Register
+      </button>
+      <button ion-button full (click)="cancel()" block color="dark">cancel</button>
+    </div>
+	</form >
+
+	{{product | json}}
+</ion-content>

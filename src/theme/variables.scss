@@ -37,11 +37,16 @@ $colors: (
   primary:    #488aff,
   secondary:  #32db64,
   danger:     #f53d3d,
+  success:    #5cb85c,
+  warning:	  #f0ad4e,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  white:      #fff,
+  black:      #000,
 );
 
-
+$spinner-md-crescent-color : white;
+$border-bottom-input: #dedede;
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

@@ -14,3 +14,28 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.item-md.item-block.item-input.ng-valid.item-input-has-value .item-inner, 
+.item-md.item-block.item-input.ng-invalid .item-input-has-value .item-inner,
+.item-md.item-block.item-input.ng-valid .item-inner,
+.item-md.item-block.item-input.ng-invalid .item-inner { 
+	border-bottom: 2px solid $border-bottom-input;
+    box-shadow: none;
+}
+
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+	border-bottom: 2px solid $border-bottom-input;
+    box-shadow: none;
+}
+
+.ng-is-valid {
+	.item-inner{
+		border-bottom: 2px color($colors, success , base) solid !important;
+	}
+}
+
+.ng-is-invalid {
+	.item-inner{
+		border-bottom: 2px color($colors, danger , base) solid !important;
+	}
+}

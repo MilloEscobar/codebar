@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Camera} from '@ionic-native/camera';
 import { AddProductPage } from '../pages/add-product/add-product';
 import { FindProductPage } from '../pages/find-product/find-product';
 
@@ -44,6 +45,7 @@ import { HttpServicesProvider } from '../providers/http-services/http-services';
   providers: [
     StatusBar,
     BarcodeScanner,
+    Camera,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpServicesProvider

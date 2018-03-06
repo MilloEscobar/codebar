@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { HomePage } from '../home/home';
@@ -42,7 +43,8 @@ export class AddProductPage {
   constructor(public navCtrl: NavController, 
   	public navParams: NavParams,
   	private barcodeScanner: BarcodeScanner,
-    private HttpServicesProvider: HttpServicesProvider) {
+    private HttpServicesProvider: HttpServicesProvider,
+    private camera: Camera) {
     if(navParams.get('addNew')) {
       this.addPrductFrorm.id.value =  navParams.get('addNew');
     }
@@ -129,6 +131,9 @@ export class AddProductPage {
             console.log(error);
           });
     
+  }
+
+  addImage() {
   }
 
   cancel() {

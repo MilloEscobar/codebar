@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { ListPage } from '../list/list';
 import { AddProductPage } from '../add-product/add-product';
+import { FindProductPage } from '../find-product/find-product';
 
 @Component({
   selector: 'page-home',
@@ -15,7 +16,8 @@ pages: Array<{title: string, component: any}>;
   constructor(public navCtrl: NavController) {
   	this.pages = [
       { title: 'List', component: ListPage },
-      { title: 'Add Product', component: AddProductPage }
+      { title: 'Add Product', component: AddProductPage },
+      { title: 'Find Product', component: FindProductPage }
     ];
   }
 

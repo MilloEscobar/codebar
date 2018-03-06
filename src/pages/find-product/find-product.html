@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Find product</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+      {{msj | json}}
+      <ion-item [class.ng-is-invalid]="id.touched && !find.id.valid" 
+              [class.ng-is-valid]="find.id.valid">
+      <ion-label floating>Codigo</ion-label>
+      <ion-input [class.ng-valid]="false" requierd  type="text" name="id" 
+                (ionBlur)="idValidate()"
+                [(ngModel)]="find.id.value" 
+                #id="ngModel">
+      </ion-input>
+    </ion-item>
+    <p ion-text padding-left padding-right class="no-margin" color="danger">
+      <span *ngIf="id.touched && !find.id.valid">{{find.id.errorMessage}}</span></p>
+
+      <button ion-button full (click)="getOne()" block color="dark">cancel</button>
+      <button ion-button full secondary (click)="scan()"> Scan </button>
+
+      
+</ion-content>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { HttpServicesProvider } from '../../providers/http-services/http-services';
+
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 /**
@@ -18,6 +20,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 export class AddProductPage {
 
   error;
+  msj;
 
   addPrductFrorm = {
                   name: { value:"", valid:false, errorMessage:null },
@@ -37,7 +40,8 @@ export class AddProductPage {
 
   constructor(public navCtrl: NavController, 
   	public navParams: NavParams,
-  	private barcodeScanner: BarcodeScanner) {
+  	private barcodeScanner: BarcodeScanner,
+    private HttpServicesProvider: HttpServicesProvider) {
 
   	
   }
@@ -105,6 +109,17 @@ export class AddProductPage {
       quantity:this.addPrductFrorm.quantity.value,
       price:this.addPrductFrorm.price.value
     };
+    this.HttpServicesProvider.createProduct(this.product)
+        .subscribe(
+          data => {
+            this.msj = data;
+              console.log(data);
+          },
+          error => {   
+            this.msj = error;  
+            console.log(error);
+          });
+    
   }
 
 }

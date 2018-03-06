@@ -11,7 +11,7 @@
 	<button ion-button secondary (click)="scan()">
         Scan
       </button>
-
+      {{msj | json}}
       <form (ngSubmit)="addProduct()" novalidate>
 
     <ion-item [class.ng-is-invalid]="name.touched && !addPrductFrorm.name.valid" 
@@ -72,6 +72,4 @@
       <button ion-button full (click)="cancel()" block color="dark">cancel</button>
     </div>
 	</form >
-
-	{{product | json}}
 </ion-content>

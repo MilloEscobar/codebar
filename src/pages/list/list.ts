@@ -1,37 +1,43 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { DetailPage } from '../detail/detail';
+
+import { HttpServicesProvider } from '../../providers/http-services/http-services';
+
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
 })
 export class ListPage {
   selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  products: Array<{name: string, price: number, id: string, format:string, quantity:number, _id:string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    public HttpServicesProvider: HttpServicesProvider) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
+    this.products = [];
 
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+    this.HttpServicesProvider.getProducts()
+      .subscribe(
+        data => {
+          this.populateItems(data);
+        },
+        error => {     
+          console.log(error);
+        });  
   }
 
-  itemTapped(event, item) {
+  populateItems(data) {
+    this.products = data.data;
+  }
+
+  itemTapped(event, product) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
+    this.navCtrl.push(DetailPage, {
+      product: product
     });
   }
 }

@@ -1,13 +1,14 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Inicio</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button ion-button secondary *ngFor="let p of pages" (click)="openPage(p)">{{p.title}}
-  </button>
+  <button class="button-home" margin-top margin-bottom ion-button color="dark" full
+  *ngFor="let p of pages" 
+  (click)="openPage(p)">{{p.title}}</button>
 </ion-content>

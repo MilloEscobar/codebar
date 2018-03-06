@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{product.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+	<h4><span>Nombre: </span>{{product.name}}</h4>
+	<h4><span>Cantidad: </span>{{product.quantity}}</h4>
+	<h4><span>Precio: </span>${{product.price}}</h4>
+	<h4><span>Codigo: </span>{{product.id}}</h4>
+</ion-content>

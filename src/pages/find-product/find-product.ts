@@ -3,6 +3,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 
+import { ListPage } from '../list/list';
+
+import { AddProductPage } from '../add-product/add-product';
+import { HomePage } from '../home/home';
+import { DetailPage } from '../detail/detail';
+
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 /**
@@ -23,13 +29,7 @@ export class FindProductPage {
 	barcodeData;
 	msj;
 
-	find = {
-                  name: { value:"", valid:false, errorMessage:null },
-                  price: { value:null, valid:false, errorMessage:null }, 
-                  quantity: { value:null, valid:false, errorMessage:null },
-                  format: { value:"", valid:false, errorMessage:null }, 
-                  id: { value:"", valid:false, errorMessage:null }
-                };
+	find = { id: { value:"", valid:false, errorMessage:null }};
 
   constructor(public navCtrl: NavController, 
   	public navParams: NavParams,
@@ -55,8 +55,11 @@ export class FindProductPage {
   	this.HttpServicesProvider.getOne(this.find.id.value)
       	.subscribe(
           data => {
-          	this.msj = data;
-              console.log(data);
+            if (data["status"] == "success") {
+              this.navCtrl.setRoot(DetailPage, {product: data["data"]});
+            } else {
+              this.msj = "Product Not Found";
+            }
           },
           error => {     
           	this.msj = error;
@@ -66,20 +69,20 @@ export class FindProductPage {
   scan() {
     this.barcodeScanner.scan().then((barcodeData) => {
       this.barcodeData = barcodeData;
-      this.HttpServicesProvider.getOne(barcodeData.text)
-      	.subscribe(
-          data => {
-          	this.msj = data;
-              console.log(data);
-          },
-          error => {     
-          	this.msj = error;
-            console.log(error);
-          });
+      this.find.id.value = barcodeData.text;
+      this.getOne();
 
     }, (err) => {
       this.error = err;
     });
+  }
+
+  agregarProducto() {
+    this.navCtrl.setRoot(AddProductPage, {addNew: this.find.id.value});
+  }
+
+  cancel() {
+    this.navCtrl.setRoot(HomePage);
   }
 
 }

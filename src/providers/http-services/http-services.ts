@@ -16,11 +16,15 @@ export class HttpServicesProvider {
 
 
   getOne (id) {
-  	return this.http.get("http://192.168.0.107:3000/api/product/" + id);
+  	return this.http.get("http://10.28.6.16:3000/api/product/" + id);
   }
 
   createProduct (product) {
-  	return this.http.post("http://192.168.0.107:3000/api/product",product);
+  	return this.http.post("http://10.28.6.16:3000/api/product",product);
+  }
+
+  getProducts () {
+    return this.http.get("http://10.28.6.16:3000/api/product");
   }
 
 }

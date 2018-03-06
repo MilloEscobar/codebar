@@ -11,6 +11,7 @@ import { FindProductPage } from '../pages/find-product/find-product';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { DetailPage } from '../pages/detail/detail';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,7 +23,8 @@ import { HttpServicesProvider } from '../providers/http-services/http-services';
     HomePage,
     AddProductPage,
     FindProductPage,
-    ListPage
+    ListPage,
+    DetailPage
   ],
   imports: [
     BrowserModule,
@@ -35,6 +37,7 @@ import { HttpServicesProvider } from '../providers/http-services/http-services';
     MyApp,
     HomePage,
     ListPage,
+    DetailPage,
     AddProductPage,
     FindProductPage,
   ],

@@ -1,16 +1,13 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Add product</ion-title>
+    <ion-title>Agregar Producto</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-	<button ion-button secondary (click)="scan()">
-        Scan
-      </button>
       {{msj | json}}
       <form (ngSubmit)="addProduct()" novalidate>
 
@@ -64,12 +61,10 @@
     </ion-item>
     <p ion-text padding-left padding-right class="no-margin" color="danger">
       <span *ngIf="id.touched && !addPrductFrorm.id.valid">{{addPrductFrorm.id.errorMessage}}</span></p>
-
-    <div padding>
-      <button ion-button full type="submit" block color="success"
-              [disabled]=" !addPrductFrorm.name.valid || !addPrductFrorm.price.valid || !addPrductFrorm.quantity.valid || !addPrductFrorm.id.valid ">Register
-      </button>
-      <button ion-button full (click)="cancel()" block color="dark">cancel</button>
-    </div>
+    
+    <button margin-top margin-bottom ion-button full type="submit" block color="success"
+              [disabled]=" !addPrductFrorm.name.valid || !addPrductFrorm.price.valid || !addPrductFrorm.quantity.valid || !addPrductFrorm.id.valid ">Agregar Producto</button>
 	</form >
+  <button margin-top margin-bottom ion-button full secondary (click)="scan()">Escanear</button>
+  <button margin-top margin-bottom ion-button full (click)="cancel()" block color="danger">cancel</button>
 </ion-content>

@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the AddProductPage page.
@@ -42,12 +43,12 @@ export class AddProductPage {
   	public navParams: NavParams,
   	private barcodeScanner: BarcodeScanner,
     private HttpServicesProvider: HttpServicesProvider) {
-
-  	
+    if(navParams.get('addNew')) {
+      this.addPrductFrorm.id.value =  navParams.get('addNew');
+    }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddProductPage');
   }
 
   scan() {
@@ -112,14 +113,26 @@ export class AddProductPage {
     this.HttpServicesProvider.createProduct(this.product)
         .subscribe(
           data => {
-            this.msj = data;
-              console.log(data);
+            console.log(data)
+            if (data["status"] == "success") {
+              this.navCtrl.setRoot(AddProductPage, {product: this.product});
+            } 
+
+            if (data["message"] == "Product Exists"){
+              this.msj = "Product Already Exists";
+            } else {
+              this.msj = "Error adding the product";
+            }
           },
           error => {   
             this.msj = error;  
             console.log(error);
           });
     
+  }
+
+  cancel() {
+    this.navCtrl.setRoot(HomePage);
   }
 
 }

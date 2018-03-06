@@ -15,9 +15,9 @@ pages: Array<{title: string, component: any}>;
 
   constructor(public navCtrl: NavController) {
   	this.pages = [
-      { title: 'List', component: ListPage },
-      { title: 'Add Product', component: AddProductPage },
-      { title: 'Find Product', component: FindProductPage }
+      { title: 'Productos', component: ListPage },
+      { title: 'Agregar Producto', component: AddProductPage },
+      { title: 'Buscar Producto', component: FindProductPage }
     ];
   }
 

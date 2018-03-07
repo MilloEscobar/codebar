@@ -1,3 +1,19 @@
 page-add-product {
+	.image-wrapper {
+		overflow: hidden;
+		position: relative;
+		height: 200px;
+		text-align: center;
+		img {
+			height: 100%;
+			width: auto;
+			margin: 0 auto;
+		}	
+	}
 
+	.take-picture {
+		position: absolute;
+		bottom: 0;
+		z-index: 500;
+	}
 }

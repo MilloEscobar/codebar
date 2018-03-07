@@ -9,22 +9,23 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class HttpServicesProvider {
-
+serviceLink = "macrobible.fr.openode.io";
+// serviceLink = "192.168.0.107:3000"
   constructor(public http: HttpClient) {
     console.log('Hello HttpServicesProvider Provider');
   }
 
 
   getOne (id) {
-  	return this.http.get("http://10.28.6.16:3000/api/product/" + id);
+  	return this.http.get("http://"+this.serviceLink+"/api/product/" + id);
   }
 
   createProduct (product) {
-  	return this.http.post("http://10.28.6.16:3000/api/product",product);
+  	return this.http.post("http://"+this.serviceLink+"/api/product",product);
   }
 
   getProducts () {
-    return this.http.get("http://10.28.6.16:3000/api/product");
+    return this.http.get("http://"+this.serviceLink+"/api/product");
   }
 
 }

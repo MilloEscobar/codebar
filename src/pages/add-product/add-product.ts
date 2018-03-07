@@ -2,10 +2,14 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
+
+import { Platform } from 'ionic-angular';
+
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { HomePage } from '../home/home';
+import { DetailPage } from '../detail/detail';
 
 /**
  * Generated class for the AddProductPage page.
@@ -23,6 +27,8 @@ export class AddProductPage {
 
   error;
   msj;
+  urlImage;
+  cameraOpen = false;
 
   addPrductFrorm = {
                   name: { value:"", valid:false, errorMessage:null },
@@ -37,17 +43,23 @@ export class AddProductPage {
     id:'',
     format:'',
     price:0,
-    quantity:0
+    quantity:0,
+    image:''
   }
 
   constructor(public navCtrl: NavController, 
+    public plt: Platform,
   	public navParams: NavParams,
   	private barcodeScanner: BarcodeScanner,
     private HttpServicesProvider: HttpServicesProvider,
-    private camera: Camera) {
+    private cameraPreview: CameraPreview) {
+
+
+
     if(navParams.get('addNew')) {
       this.addPrductFrorm.id.value =  navParams.get('addNew');
     }
+    this.urlImage = 'https://getuikit.com/v2/docs/images/placeholder_200x100.svg';
   }
 
   ionViewDidLoad() {
@@ -110,14 +122,15 @@ export class AddProductPage {
       format:this.addPrductFrorm.format.value,
       name:this.addPrductFrorm.name.value,
       quantity:this.addPrductFrorm.quantity.value,
-      price:this.addPrductFrorm.price.value
+      price:this.addPrductFrorm.price.value,
+      image:this.urlImage
     };
     this.HttpServicesProvider.createProduct(this.product)
         .subscribe(
           data => {
             console.log(data)
             if (data["status"] == "success") {
-              this.navCtrl.setRoot(AddProductPage, {product: this.product});
+              this.navCtrl.setRoot(DetailPage, {product: this.product});
             } 
 
             if (data["message"] == "Product Exists"){
@@ -133,7 +146,50 @@ export class AddProductPage {
     
   }
 
-  addImage() {
+  transformUrl(url){
+    // return this.sanitizer.bypassSecurityTrustResourceUrl(url)
+  }
+
+  openCamera() {
+    const cameraPreviewOpts: CameraPreviewOptions = {
+      x: 0,
+      y: 56,
+      width: window.screen.width,
+      height: window.screen.height - 50,
+      camera: 'rear',
+      tapPhoto: false,
+      previewDrag: false,
+      toBack: false,
+      alpha: 1
+    };
+
+    
+     this.cameraPreview.startCamera(cameraPreviewOpts).then(
+            (res) => {
+              this.cameraOpen = true;
+            },
+            (err) => {
+              console.log(err)
+            }); 
+
+  }
+
+  takePhoto() {
+
+    const pictureOpts: CameraPreviewPictureOptions = {
+      width: window.screen.width,
+      height: window.screen.height - 50,
+      quality: 85
+    }
+
+        // take a picture
+    this.cameraPreview.takePicture(pictureOpts).then((imageData) => {
+      this.urlImage = 'data:image/jpeg;base64,' + imageData;
+      this.cameraPreview.stopCamera();
+      this.cameraOpen = false;
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   cancel() {

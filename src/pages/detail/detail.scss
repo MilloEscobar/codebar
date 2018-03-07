@@ -1,3 +1,13 @@
 page-detail {
-
+	.image-wrapper {
+		overflow: hidden;
+		position: relative;
+		height: 200px;
+		text-align: center;
+		img {
+			height: 100%;
+			width: auto;
+			margin: 0 auto;
+		}
+	}
 }

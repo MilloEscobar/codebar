@@ -9,6 +9,10 @@
 
 
 <ion-content padding>
+  <div class="image-wrapper">
+    <img [src]="product.image" alt="">
+  </div>
+  
 	<h4><span>Nombre: </span>{{product.name}}</h4>
 	<h4><span>Cantidad: </span>{{product.quantity}}</h4>
 	<h4><span>Precio: </span>${{product.price}}</h4>

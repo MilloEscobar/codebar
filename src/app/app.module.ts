@@ -4,10 +4,12 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
 import { AddProductPage } from '../pages/add-product/add-product';
 import { FindProductPage } from '../pages/find-product/find-product';
+import { EditPage } from '../pages/edit/edit';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -23,6 +25,7 @@ import { HttpServicesProvider } from '../providers/http-services/http-services';
     MyApp,
     HomePage,
     AddProductPage,
+    EditPage,
     FindProductPage,
     ListPage,
     DetailPage
@@ -40,13 +43,16 @@ import { HttpServicesProvider } from '../providers/http-services/http-services';
     ListPage,
     DetailPage,
     AddProductPage,
+    EditPage,
     FindProductPage,
   ],
   providers: [
     StatusBar,
     BarcodeScanner,
+
     CameraPreview,
     SplashScreen,
+    ScreenOrientation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpServicesProvider
   ]

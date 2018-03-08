@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
@@ -17,19 +18,20 @@ import { DetailPage } from '../detail/detail';
 
 @IonicPage()
 @Component({
-  selector: 'page-add-product',
-  templateUrl: 'add-product.html',
+  selector: 'page-edit',
+  templateUrl: 'edit.html',
 })
-export class AddProductPage {
+export class EditPage {
+
   urlImage;
   cameraOpen = false;
 
-  addPrductFrorm = {
-                  name: { value:"", valid:false, errorMessage:null },
-                  price: { value:null, valid:false, errorMessage:null }, 
-                  quantity: { value:null, valid:false, errorMessage:null },
-                  format: { value:"", valid:false, errorMessage:null }, 
-                  id: { value:"", valid:false, errorMessage:null }
+  editProduct = {
+                  name: { value:"", valid:true, errorMessage:null },
+                  price: { value:null, valid:true, errorMessage:null }, 
+                  quantity: { value:null, valid:true, errorMessage:null },
+                  format: { value:"", valid:true, errorMessage:null }, 
+                  id: { value:"", valid:true, errorMessage:null }
                 };
 
   product = {
@@ -59,10 +61,15 @@ export class AddProductPage {
        }
     );
 
-    if(navParams.get('addNew')) {
-      this.addPrductFrorm.id.value =  navParams.get('addNew');
+    if(navParams.get('product')) {
+      this.product =  navParams.get('product');
+      this.editProduct.id.value = this.product.id;
+      this.editProduct.format.value = this.product.format;
+      this.editProduct.name.value = this.product.name;
+      this.editProduct.quantity.value = this.product.quantity;
+      this.editProduct.price.value = this.product.price;
+      this.urlImage = this.product.image;
     }
-    this.urlImage = 'https://getuikit.com/v2/docs/images/placeholder_200x100.svg';
   }
 
   ionViewDidLoad() {
@@ -70,9 +77,9 @@ export class AddProductPage {
 
   scan() {
     this.barcodeScanner.scan().then((barcodeData) => {
-      this.addPrductFrorm.format.value = barcodeData.format;
-      this.addPrductFrorm.id.value = barcodeData.text;
-      this.addPrductFrorm.id.valid = true;
+      this.editProduct.format.value = barcodeData.format;
+      this.editProduct.id.value = barcodeData.text;
+      this.editProduct.id.valid = true;
 
     }, (err) => {
       console.log(err);
@@ -81,74 +88,69 @@ export class AddProductPage {
   }
 
   nameValidate() {
-    if (this.addPrductFrorm.name.value === "") {
-      this.addPrductFrorm.name.valid = false;
-      this.addPrductFrorm.name.errorMessage = "This field is Required";
+    if (this.editProduct.name.value === "") {
+      this.editProduct.name.valid = false;
+      this.editProduct.name.errorMessage = "This field is Required";
     } else {
-      this.addPrductFrorm.name.valid = true;
-      this.addPrductFrorm.name.errorMessage = "";    
+      this.editProduct.name.valid = true;
+      this.editProduct.name.errorMessage = "";    
     } 
   }
 
   priceValidate() {
-    if (!this.addPrductFrorm.price.value) {
-      this.addPrductFrorm.price.valid = false;
-      this.addPrductFrorm.price.errorMessage = "This field is Required";
+    if (!this.editProduct.price.value) {
+      this.editProduct.price.valid = false;
+      this.editProduct.price.errorMessage = "This field is Required";
     } else {
-      this.addPrductFrorm.price.valid = true;  
-      this.addPrductFrorm.price.errorMessage = "";
+      this.editProduct.price.valid = true;  
+      this.editProduct.price.errorMessage = "";
     } 
   }
 
   quantityValidate() {
-    if (!this.addPrductFrorm.quantity.value) {
-      this.addPrductFrorm.quantity.valid = false;
-      this.addPrductFrorm.quantity.errorMessage = "This field is Required";
+    if (!this.editProduct.quantity.value) {
+      this.editProduct.quantity.valid = false;
+      this.editProduct.quantity.errorMessage = "This field is Required";
     } else {
-      this.addPrductFrorm.quantity.valid = true;
-      this.addPrductFrorm.quantity.errorMessage = "";
+      this.editProduct.quantity.valid = true;
+      this.editProduct.quantity.errorMessage = "";
     }
   }
 
   idValidate() {
-    if (this.addPrductFrorm.id.value === "") {
-      this.addPrductFrorm.id.valid = false;
-      this.addPrductFrorm.id.errorMessage = "This field is Required";
+    if (this.editProduct.id.value === "") {
+      this.editProduct.id.valid = false;
+      this.editProduct.id.errorMessage = "This field is Required";
     } else {
-      this.addPrductFrorm.id.valid = true;
-      this.addPrductFrorm.id.errorMessage = "";
+      this.editProduct.id.valid = true;
+      this.editProduct.id.errorMessage = "";
     }
   }
 
-  addProduct() {
+  updateProduct() {
     this.product = {
-      id:this.addPrductFrorm.id.value,
-      format:this.addPrductFrorm.format.value,
-      name:this.addPrductFrorm.name.value,
-      quantity:this.addPrductFrorm.quantity.value,
-      price:this.addPrductFrorm.price.value,
+      id:this.editProduct.id.value,
+      format:this.editProduct.format.value,
+      name:this.editProduct.name.value,
+      quantity:this.editProduct.quantity.value,
+      price:this.editProduct.price.value,
       image:this.urlImage
     };
-    this.HttpServicesProvider.createProduct(this.product)
-        .subscribe(
-          data => {
-            console.log(data)
-            if (data["status"] == "success") {
-              return this.navCtrl.setRoot(DetailPage, {product: this.product});
-            } 
-
-            if (data["message"] == "Product Exists"){
-              return this.presentAlert("El producto ya existe");
-            } 
-
-            this.presentAlert("No se pudo agregar el producto");
-            
-          },
-          error => {   
-            this.presentAlert("No hay conexion o hay un problema de red");
-            console.log(error);
-          });
-    
+    this.HttpServicesProvider.editProduct(this.product)
+      .subscribe(
+        data => {
+          if (data["status"] == "success") {
+            return this.navCtrl.setRoot(DetailPage, {product: this.product});
+          } 
+          if (data["message"] == "Product Not Found"){
+            return this.presentAlert("Producto no encontrado");
+          }
+          this.presentAlert("Error editando el producto");
+        },
+        error => {   
+          console.log(error);
+          this.presentAlert("No hay conexion o hay un problema de red");
+        });
   }
 
   transformUrl(url){
@@ -160,38 +162,37 @@ export class AddProductPage {
       x: 0,
       y: 56,
       width: window.screen.width,
-      height: window.screen.height - 156,
+      height: window.screen.height - 50,
       camera: 'rear',
       tapPhoto: false,
       previewDrag: false,
       toBack: false,
       alpha: 1
     };
-    this.cameraOpen = true;  
+    this.cameraOpen = true;
     this.cameraPreview.startCamera(cameraPreviewOpts).then(
       (res) => {
       },
       (err) => {
         console.log(err);
-        this.presentAlert("No se pudo abrir la camara");
         this.cameraOpen = false;
-        
-      }); 
-    }
+        this.presentAlert("No se pudo abrir la camara");
+      });
+  }
 
   takePhoto() {
     const pictureOpts: CameraPreviewPictureOptions = {
       width: window.screen.width,
-      height: window.screen.height - 156,
+      height: window.screen.height - 50,
       quality: 85
     }
-        // take a picture
+    // take a picture
     this.cameraPreview.takePicture(pictureOpts).then((imageData) => {
       this.urlImage = 'data:image/jpeg;base64,' + imageData;
       this.cameraPreview.stopCamera();
       this.cameraOpen = false;
-
     }, (err) => {
+      console.log(err);
       this.presentAlert("No se pudo tomar la foto");
     });
   }
@@ -202,9 +203,8 @@ export class AddProductPage {
   }
 
   cancel() {
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.pop();
   }
-
   presentAlert(msj) {
     let alert = this.alertCtrl.create({
       title: 'Algo salio mal',
@@ -213,4 +213,5 @@ export class AddProductPage {
     });
     alert.present();
   }
+
 }

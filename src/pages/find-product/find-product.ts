@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
 
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 
@@ -25,20 +25,17 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 })
 export class FindProductPage {
 
-	error;
 	barcodeData;
-	msj;
-
 	find = { id: { value:"", valid:false, errorMessage:null }};
 
   constructor(public navCtrl: NavController, 
   	public navParams: NavParams,
   	private barcodeScanner: BarcodeScanner,
+    private alertCtrl: AlertController,
   	private HttpServicesProvider: HttpServicesProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FindProductPage');
   }
 
   idValidate() {
@@ -58,11 +55,11 @@ export class FindProductPage {
             if (data["status"] == "success") {
               this.navCtrl.setRoot(DetailPage, {product: data["data"]});
             } else {
-              this.msj = "Product Not Found";
+              this.presentAlert("Producto no encontrado");
             }
           },
           error => {     
-          	this.msj = error;
+            this.presentAlert("No hay conexion o hay un problema de red");  
             console.log(error);
           });
   }
@@ -73,7 +70,8 @@ export class FindProductPage {
       this.getOne();
 
     }, (err) => {
-      this.error = err;
+      console.log(err);
+      this.presentAlert("Error de lectura de codigo");
     });
   }
 
@@ -83,6 +81,15 @@ export class FindProductPage {
 
   cancel() {
     this.navCtrl.setRoot(HomePage);
+  }
+
+  presentAlert(msj) {
+    let alert = this.alertCtrl.create({
+      title: 'Algo salio mal',
+      subTitle: msj,
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 
 }

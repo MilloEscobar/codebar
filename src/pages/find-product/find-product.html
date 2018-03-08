@@ -8,10 +8,7 @@
 </ion-header>
 
 
-<ion-content padding>
-
-      {{msj | json}}
-      
+<ion-content padding>      
       <ion-item [class.ng-is-invalid]="id.touched && !find.id.valid"
               [class.ng-is-valid]="find.id.valid">
       <ion-label floating>Codigo del producto</ion-label>
@@ -29,6 +26,5 @@
       <button margin-top margin-bottom ion-button full secondary (click)="scan()"> Escanear </button>
       <button margin-top margin-bottom ion-button full (click)="cancel()" block color="danger">cancel</button>
       <button margin-top margin-bottom *ngIf="msj == 'Product Not Found'" ion-button full secondary (click)="agregarProducto()"> Agregarlo </button>
-
       
 </ion-content>

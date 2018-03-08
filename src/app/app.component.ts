@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { FindProductPage } from '../pages/find-product/find-product';
 import { DetailPage } from '../pages/detail/detail';
+import { EditPage } from '../pages/edit/edit';
 import { AddProductPage } from '../pages/add-product/add-product';
 
 

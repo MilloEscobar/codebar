@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Agregar Producto</ion-title>
+    <ion-title>Editar Producto</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -15,62 +15,61 @@
     <button *ngIf="!cameraOpen" ion-button full (click)="openCamera()">Take picture</button>
   </div>
   <form padding>
-    <ion-item [class.ng-is-invalid]="name.touched && !addPrductFrorm.name.valid" 
-              [class.ng-is-valid]="addPrductFrorm.name.valid">
+    <ion-item [class.ng-is-invalid]="name.touched && !editProduct.name.valid" 
+              [class.ng-is-valid]="editProduct.name.valid">
       <ion-label floating>Nombre</ion-label>
       <ion-input requierd  type="text" name="name" 
                 (ionBlur)="nameValidate()"
-                [(ngModel)]="addPrductFrorm.name.value" 
+                [(ngModel)]="editProduct.name.value" 
                 #name="ngModel">   
       </ion-input>
     </ion-item>
     <p ion-text padding-left padding-right class="no-margin" color="danger">
-      <span *ngIf="name.touched && !addPrductFrorm.name.valid">{{ addPrductFrorm.name.errorMessage }}</span>
+      <span *ngIf="name.touched && !editProduct.name.valid">{{ editProduct.name.errorMessage }}</span>
     </p>
 
-    <ion-item [class.ng-is-invalid]="price.touched && !addPrductFrorm.price.valid" 
-              [class.ng-is-valid]="addPrductFrorm.price.valid">
+    <ion-item [class.ng-is-invalid]="price.touched && !editProduct.price.valid" 
+              [class.ng-is-valid]="editProduct.price.valid">
       <ion-label floating>Precio</ion-label>
       <ion-input requierd  type="number" name="price" 
                 (ionBlur)="priceValidate()"
-                [(ngModel)]="addPrductFrorm.price.value" 
+                [(ngModel)]="editProduct.price.value" 
                 #price="ngModel">   
       </ion-input>
     </ion-item>
     <p ion-text padding-left padding-right class="no-margin" color="danger">
-      <span *ngIf="price.touched && !addPrductFrorm.price.valid">{{ addPrductFrorm.price.errorMessage }}</span>
+      <span *ngIf="price.touched && !editProduct.price.valid">{{ editProduct.price.errorMessage }}</span>
     </p>
 
-    <ion-item [class.ng-is-invalid]="quantity.touched && !addPrductFrorm.quantity.valid" 
-              [class.ng-is-valid]="addPrductFrorm.quantity.valid">
+    <ion-item [class.ng-is-invalid]="quantity.touched && !editProduct.quantity.valid" 
+              [class.ng-is-valid]="editProduct.quantity.valid">
       <ion-label floating>Cantidad</ion-label>
       <ion-input requierd  type="number" name="quantity" 
                 (ionBlur)="quantityValidate()"
-                [(ngModel)]="addPrductFrorm.quantity.value" 
+                [(ngModel)]="editProduct.quantity.value" 
                 #quantity="ngModel">   
       </ion-input>
     </ion-item>
     <p ion-text padding-left padding-right class="no-margin" color="danger">
-      <span *ngIf="quantity.touched && !addPrductFrorm.quantity.valid">{{addPrductFrorm.quantity.errorMessage}}</span>
+      <span *ngIf="quantity.touched && !editProduct.quantity.valid">{{editProduct.quantity.errorMessage}}</span>
     </p>
 
-    <ion-item [class.ng-is-invalid]="id.touched && !addPrductFrorm.id.valid" 
-              [class.ng-is-valid]="addPrductFrorm.id.valid">
+    <ion-item [class.ng-is-invalid]="id.touched && !editProduct.id.valid" 
+              [class.ng-is-valid]="editProduct.id.valid">
       <ion-label floating>Codigo</ion-label>
       <ion-input [class.ng-valid]="false" requierd  type="text" name="id" 
                 (ionBlur)="idValidate()"
-                [(ngModel)]="addPrductFrorm.id.value" 
+                [(ngModel)]="editProduct.id.value" 
                 #id="ngModel">
       </ion-input>
     </ion-item>
     <p ion-text padding-left padding-right class="no-margin" color="danger">
-      <span *ngIf="id.touched && !addPrductFrorm.id.valid">{{addPrductFrorm.id.errorMessage}}</span></p>
+      <span *ngIf="id.touched && !editProduct.id.valid">{{editProduct.id.errorMessage}}</span></p>
     
     <button margin-top margin-bottom ion-button full type="submit" block color="success"
-              [disabled]=" !addPrductFrorm.name.valid || !addPrductFrorm.price.valid || !addPrductFrorm.quantity.valid || !addPrductFrorm.id.valid "
-              (click)="addProduct()">Agregar Producto</button>
-    <button margin-top margin-bottom ion-button full secondary (click)="scan()">Escanear</button>
-    <button margin-top margin-bottom ion-button full (click)="cancel()" block color="danger">Cancelar</button>
+              [disabled]=" !editProduct.name.valid || !editProduct.price.valid || !editProduct.quantity.valid || !editProduct.id.valid "
+              (click)="updateProduct()">Editar Producto</button>
+    <button margin-top margin-bottom ion-button full (click)="cancel()" block color="danger">cancel</button>
 	</form >
   <div *ngIf="cameraOpen" class="opacity-camera"></div>
   <div *ngIf="cameraOpen" class="take-picture">

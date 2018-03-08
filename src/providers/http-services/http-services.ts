@@ -24,6 +24,14 @@ serviceLink = "macrobible.fr.openode.io";
   	return this.http.post("http://"+this.serviceLink+"/api/product",product);
   }
 
+  editProduct (product) {
+    return this.http.put("http://"+this.serviceLink+"/api/product/productUpdate",product);
+  }
+
+  deleteProduct (id) {
+    return this.http.get("http://"+this.serviceLink+"/api/product/delete/" + id);
+  }
+
   getProducts () {
     return this.http.get("http://"+this.serviceLink+"/api/product");
   }

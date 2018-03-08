@@ -1,4 +1,4 @@
-page-add-product {
+page-edit {
 	.image-wrapper {
 		overflow: hidden;
 		position: relative;
@@ -20,12 +20,5 @@ page-add-product {
 		button {
 			margin: 0;
 		}
-	}
-	.opacity-camera {
-		height: 100%;
-		width: 100%;
-		background-color: color($colors, dark , base);
-		position: absolute;
-		top: 0;	
 	}
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,AlertController } from 'ionic-angular';
 
 import { DetailPage } from '../detail/detail';
 
@@ -15,6 +15,7 @@ export class ListPage {
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
+    private alertCtrl: AlertController,
     public HttpServicesProvider: HttpServicesProvider) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
@@ -24,8 +25,12 @@ export class ListPage {
       .subscribe(
         data => {
           this.populateItems(data);
+          if (!data["status"] == "success") {
+            return this.presentAlert("Error Cargando los productos");
+          } 
         },
         error => {     
+          this.presentAlert("No hay conexion o hay un problema de red");  
           console.log(error);
         });  
   }
@@ -39,5 +44,14 @@ export class ListPage {
     this.navCtrl.push(DetailPage, {
       product: product
     });
+  }
+
+  presentAlert(msj) {
+    let alert = this.alertCtrl.create({
+      title: 'Algo salio mal',
+      subTitle: msj,
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 }

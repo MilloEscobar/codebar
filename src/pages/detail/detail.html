@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -17,4 +17,9 @@
 	<h4><span>Cantidad: </span>{{product.quantity}}</h4>
 	<h4><span>Precio: </span>${{product.price}}</h4>
 	<h4><span>Codigo: </span>{{product.id}}</h4>
+
+  <div padding>
+    <button *ngIf="!cameraOpen" ion-button full (click)="edit()">Editar</button>
+    <button *ngIf="!cameraOpen" ion-button full color="danger" (click)="delete()">Borrar</button>
+  </div>
 </ion-content>

@@ -2,8 +2,9 @@ page-detail {
 	.image-wrapper {
 		overflow: hidden;
 		position: relative;
-		height: 200px;
+		height: 24rem;
 		text-align: center;
+		background-color: color($colors, black , base);
 		img {
 			height: 100%;
 			width: auto;

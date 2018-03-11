@@ -11,6 +11,7 @@ import { HttpServicesProvider } from '../../providers/http-services/http-service
 })
 export class ListPage {
   selectedItem: any;
+  msj;
   products: Array<{name: string, price: number, id: string, format:string, quantity:number, _id:string}>;
 
   constructor(public navCtrl: NavController, 
@@ -26,16 +27,21 @@ export class ListPage {
         data => {
           this.populateItems(data);
           if (!(data["status"] == "success")) {
+            this.msj = "No se pudieron cargar los productos";
             return this.presentAlert("Error Cargando los productos");
-          } 
+          }
         },
-        error => {     
+        error => {
+          this.msj = "No se pudieron cargar los productos"
           this.presentAlert("No hay conexion o hay un problema de red");  
           console.log(error);
         });  
   }
 
   populateItems(data) {
+    if (data["data"].length < 1) {
+      this.msj = "No se han agregado productos";
+    }
     this.products = data.data;
   }
 

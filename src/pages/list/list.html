@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content>
+  <h3 margin padding *ngIf="products.length < 1">{{msj}}</h3>
   <ion-list>
     <button ion-item *ngFor="let product of products" (click)="itemTapped($event, product)">
       {{product.name}}

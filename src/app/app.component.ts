@@ -38,11 +38,11 @@ export class MyApp {
           if (!result.hasPermission) {
             this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
           }
-          this.presentAlert('Has permission? '+result.hasPermission);
+          // this.presentAlert('Has permission? '+result.hasPermission);
         },
         err => {
           console.log(err);
-          this.presentAlert("androidPermissions error: "+err);
+          // this.presentAlert("androidPermissions error: "+err);
         }
       )};
 

@@ -53,9 +53,9 @@ export class AddProductPage {
     this.screenOrientation.onChange().subscribe(
        () => {
            if (this.cameraOpen) {
-             this.openCamera();
+            this.cameraPreview.stopCamera();
+            this.openCamera();
            }
-           this.msj = this.screenOrientation.type;
        }
     );
 
@@ -158,9 +158,9 @@ export class AddProductPage {
   openCamera() {
     const cameraPreviewOpts: CameraPreviewOptions = {
       x: 0,
-      y: 56,
+      y: 0,
       width: window.screen.width,
-      height: window.screen.height - 156,
+      height: window.screen.height - 130,
       camera: 'rear',
       tapPhoto: false,
       previewDrag: false,
@@ -174,6 +174,7 @@ export class AddProductPage {
       (err) => {
         console.log(err);
         this.presentAlert("No se pudo abrir la camara");
+        this.cameraPreview.stopCamera();
         this.cameraOpen = false;
         
       }); 
@@ -182,7 +183,7 @@ export class AddProductPage {
   takePhoto() {
     const pictureOpts: CameraPreviewPictureOptions = {
       width: window.screen.width,
-      height: window.screen.height - 156,
+      height: window.screen.height,
       quality: 85
     }
         // take a picture

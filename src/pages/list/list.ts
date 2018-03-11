@@ -25,7 +25,7 @@ export class ListPage {
       .subscribe(
         data => {
           this.populateItems(data);
-          if (!data["status"] == "success") {
+          if (!(data["status"] == "success")) {
             return this.presentAlert("Error Cargando los productos");
           } 
         },

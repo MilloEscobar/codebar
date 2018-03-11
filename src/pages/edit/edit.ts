@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
@@ -55,9 +54,9 @@ export class EditPage {
     this.screenOrientation.onChange().subscribe(
        () => {
            if (this.cameraOpen) {
+             this.cameraPreview.stopCamera();
              this.openCamera();
            }
-           this.msj = this.screenOrientation.type;
        }
     );
 

@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
 import { AddProductPage } from '../pages/add-product/add-product';
 import { FindProductPage } from '../pages/find-product/find-product';
@@ -53,6 +54,7 @@ import { HttpServicesProvider } from '../providers/http-services/http-services';
     CameraPreview,
     SplashScreen,
     ScreenOrientation,
+    AndroidPermissions,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpServicesProvider
   ]

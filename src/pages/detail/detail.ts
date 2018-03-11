@@ -16,6 +16,14 @@ import { HttpServicesProvider } from '../../providers/http-services/http-service
   templateUrl: 'detail.html',
 })
 export class DetailPage {
+  product = {
+    name:'',
+    id:'',
+    format:'',
+    price:0,
+    quantity:0,
+    image:''
+  }
   constructor(public navCtrl: NavController, 
   	public navParams: NavParams,
     private alertCtrl: AlertController,

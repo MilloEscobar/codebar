@@ -9,11 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { CameraPreview } from '@ionic-native/camera-preview';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { HomePage } from '../home/home';
+import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { DetailPage } from '../detail/detail';
 /**
  * Generated class for the AddProductPage page.
@@ -21,8 +20,8 @@ import { DetailPage } from '../detail/detail';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var AddProductPage = /** @class */ (function () {
-    function AddProductPage(navCtrl, navParams, barcodeScanner, HttpServicesProvider, screenOrientation, alertCtrl, cameraPreview) {
+var EditPage = /** @class */ (function () {
+    function EditPage(navCtrl, navParams, barcodeScanner, HttpServicesProvider, screenOrientation, alertCtrl, cameraPreview) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -32,12 +31,12 @@ var AddProductPage = /** @class */ (function () {
         this.alertCtrl = alertCtrl;
         this.cameraPreview = cameraPreview;
         this.cameraOpen = false;
-        this.addPrductFrorm = {
-            name: { value: "", valid: false, errorMessage: null },
-            price: { value: null, valid: false, errorMessage: null },
-            quantity: { value: null, valid: false, errorMessage: null },
-            format: { value: "", valid: false, errorMessage: null },
-            id: { value: "", valid: false, errorMessage: null }
+        this.editProduct = {
+            name: { value: "", valid: true, errorMessage: null },
+            price: { value: null, valid: true, errorMessage: null },
+            quantity: { value: null, valid: true, errorMessage: null },
+            format: { value: "", valid: true, errorMessage: null },
+            id: { value: "", valid: true, errorMessage: null }
         };
         this.product = {
             name: '',
@@ -54,99 +53,103 @@ var AddProductPage = /** @class */ (function () {
                 _this.openCamera();
             }
         });
-        if (navParams.get('addNew')) {
-            this.addPrductFrorm.id.value = navParams.get('addNew');
+        if (navParams.get('product')) {
+            this.product = navParams.get('product');
+            this.editProduct.id.value = this.product.id;
+            this.editProduct.format.value = this.product.format;
+            this.editProduct.name.value = this.product.name;
+            this.editProduct.quantity.value = this.product.quantity;
+            this.editProduct.price.value = this.product.price;
+            this.urlImage = this.product.image;
         }
-        this.urlImage = 'https://getuikit.com/v2/docs/images/placeholder_200x100.svg';
     }
-    AddProductPage.prototype.ionViewDidLoad = function () {
+    EditPage.prototype.ionViewDidLoad = function () {
     };
-    AddProductPage.prototype.scan = function () {
+    EditPage.prototype.scan = function () {
         var _this = this;
         this.barcodeScanner.scan().then(function (barcodeData) {
-            _this.addPrductFrorm.format.value = barcodeData.format;
-            _this.addPrductFrorm.id.value = barcodeData.text;
-            _this.addPrductFrorm.id.valid = true;
+            _this.editProduct.format.value = barcodeData.format;
+            _this.editProduct.id.value = barcodeData.text;
+            _this.editProduct.id.valid = true;
         }, function (err) {
             console.log(err);
             _this.presentAlert("Error de lectura de codigo");
         });
     };
-    AddProductPage.prototype.nameValidate = function () {
-        if (this.addPrductFrorm.name.value === "") {
-            this.addPrductFrorm.name.valid = false;
-            this.addPrductFrorm.name.errorMessage = "This field is Required";
+    EditPage.prototype.nameValidate = function () {
+        if (this.editProduct.name.value === "") {
+            this.editProduct.name.valid = false;
+            this.editProduct.name.errorMessage = "This field is Required";
         }
         else {
-            this.addPrductFrorm.name.valid = true;
-            this.addPrductFrorm.name.errorMessage = "";
+            this.editProduct.name.valid = true;
+            this.editProduct.name.errorMessage = "";
         }
     };
-    AddProductPage.prototype.priceValidate = function () {
-        if (!this.addPrductFrorm.price.value) {
-            this.addPrductFrorm.price.valid = false;
-            this.addPrductFrorm.price.errorMessage = "This field is Required";
+    EditPage.prototype.priceValidate = function () {
+        if (!this.editProduct.price.value) {
+            this.editProduct.price.valid = false;
+            this.editProduct.price.errorMessage = "This field is Required";
         }
         else {
-            this.addPrductFrorm.price.valid = true;
-            this.addPrductFrorm.price.errorMessage = "";
+            this.editProduct.price.valid = true;
+            this.editProduct.price.errorMessage = "";
         }
     };
-    AddProductPage.prototype.quantityValidate = function () {
-        if (!this.addPrductFrorm.quantity.value) {
-            this.addPrductFrorm.quantity.valid = false;
-            this.addPrductFrorm.quantity.errorMessage = "This field is Required";
+    EditPage.prototype.quantityValidate = function () {
+        if (!this.editProduct.quantity.value) {
+            this.editProduct.quantity.valid = false;
+            this.editProduct.quantity.errorMessage = "This field is Required";
         }
         else {
-            this.addPrductFrorm.quantity.valid = true;
-            this.addPrductFrorm.quantity.errorMessage = "";
+            this.editProduct.quantity.valid = true;
+            this.editProduct.quantity.errorMessage = "";
         }
     };
-    AddProductPage.prototype.idValidate = function () {
-        if (this.addPrductFrorm.id.value === "") {
-            this.addPrductFrorm.id.valid = false;
-            this.addPrductFrorm.id.errorMessage = "This field is Required";
+    EditPage.prototype.idValidate = function () {
+        if (this.editProduct.id.value === "") {
+            this.editProduct.id.valid = false;
+            this.editProduct.id.errorMessage = "This field is Required";
         }
         else {
-            this.addPrductFrorm.id.valid = true;
-            this.addPrductFrorm.id.errorMessage = "";
+            this.editProduct.id.valid = true;
+            this.editProduct.id.errorMessage = "";
         }
     };
-    AddProductPage.prototype.addProduct = function () {
+    EditPage.prototype.updateProduct = function () {
         var _this = this;
         this.product = {
-            id: this.addPrductFrorm.id.value,
-            format: this.addPrductFrorm.format.value,
-            name: this.addPrductFrorm.name.value,
-            quantity: this.addPrductFrorm.quantity.value,
-            price: this.addPrductFrorm.price.value,
+            id: this.editProduct.id.value,
+            format: this.editProduct.format.value,
+            name: this.editProduct.name.value,
+            quantity: this.editProduct.quantity.value,
+            price: this.editProduct.price.value,
             image: this.urlImage
         };
-        this.HttpServicesProvider.createProduct(this.product)
+        this.HttpServicesProvider.editProduct(this.product)
             .subscribe(function (data) {
-            console.log(data);
             if (data["status"] == "success") {
                 return _this.navCtrl.setRoot(DetailPage, { product: _this.product });
             }
-            if (data["message"] == "Product Exists") {
-                return _this.presentAlert("El producto ya existe");
+            if (data["message"] == "Product Not Found") {
+                return _this.presentAlert("Producto no encontrado");
             }
-            _this.presentAlert("No se pudo agregar el producto");
+            _this.presentAlert("Error editando el producto");
         }, function (error) {
-            _this.presentAlert("No hay conexion o hay un problema de red");
             console.log(error);
+            _this.presentAlert("No hay conexion o hay un problema de red");
         });
     };
-    AddProductPage.prototype.transformUrl = function (url) {
+    EditPage.prototype.transformUrl = function (url) {
         // return this.sanitizer.bypassSecurityTrustResourceUrl(url)
     };
-    AddProductPage.prototype.openCamera = function () {
+    EditPage.prototype.openCamera = function () {
         var _this = this;
         var cameraPreviewOpts = {
             x: 0,
-            y: 0,
+            y: 56,
             width: window.screen.width,
-            height: window.screen.height - 130,
+            height: window.screen.height - 50,
             camera: 'rear',
             tapPhoto: false,
             previewDrag: false,
@@ -157,16 +160,15 @@ var AddProductPage = /** @class */ (function () {
         this.cameraPreview.startCamera(cameraPreviewOpts).then(function (res) {
         }, function (err) {
             console.log(err);
-            _this.presentAlert("No se pudo abrir la camara");
-            _this.cameraPreview.stopCamera();
             _this.cameraOpen = false;
+            _this.presentAlert("No se pudo abrir la camara");
         });
     };
-    AddProductPage.prototype.takePhoto = function () {
+    EditPage.prototype.takePhoto = function () {
         var _this = this;
         var pictureOpts = {
             width: window.screen.width,
-            height: window.screen.height,
+            height: window.screen.height - 50,
             quality: 85
         };
         // take a picture
@@ -175,17 +177,18 @@ var AddProductPage = /** @class */ (function () {
             _this.cameraPreview.stopCamera();
             _this.cameraOpen = false;
         }, function (err) {
+            console.log(err);
             _this.presentAlert("No se pudo tomar la foto");
         });
     };
-    AddProductPage.prototype.closeCamera = function () {
+    EditPage.prototype.closeCamera = function () {
         this.cameraOpen = false;
         this.cameraPreview.stopCamera();
     };
-    AddProductPage.prototype.cancel = function () {
-        this.navCtrl.setRoot(HomePage);
+    EditPage.prototype.cancel = function () {
+        this.navCtrl.pop();
     };
-    AddProductPage.prototype.presentAlert = function (msj) {
+    EditPage.prototype.presentAlert = function (msj) {
         var alert = this.alertCtrl.create({
             title: 'Algo salio mal',
             subTitle: msj,
@@ -193,11 +196,11 @@ var AddProductPage = /** @class */ (function () {
         });
         alert.present();
     };
-    AddProductPage = __decorate([
+    EditPage = __decorate([
         IonicPage(),
         Component({
-            selector: 'page-add-product',
-            templateUrl: 'add-product.html',
+            selector: 'page-edit',
+            templateUrl: 'edit.html',
         }),
         __metadata("design:paramtypes", [NavController,
             NavParams,
@@ -206,8 +209,8 @@ var AddProductPage = /** @class */ (function () {
             ScreenOrientation,
             AlertController,
             CameraPreview])
-    ], AddProductPage);
-    return AddProductPage;
+    ], EditPage);
+    return EditPage;
 }());
-export { AddProductPage };
-//# sourceMappingURL=add-product.js.map
+export { EditPage };
+//# sourceMappingURL=edit.js.map

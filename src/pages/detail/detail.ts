@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
 import { EditPage } from '../edit/edit';
 import { ListPage } from '../list/list';
+import { BuyPage } from '../buy/buy';
+import { SellPage } from '../sell/sell';
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 /**
  * Generated class for the DetailPage page.
@@ -37,6 +39,14 @@ export class DetailPage {
 
   edit() {
     this.navCtrl.push(EditPage, {product: this.product});
+  }
+
+  buy() {
+    this.navCtrl.push(BuyPage, {product: this.product});
+  }
+
+  sell() {
+    this.navCtrl.push(SellPage, {product: this.product});
   }
 
   delete(){

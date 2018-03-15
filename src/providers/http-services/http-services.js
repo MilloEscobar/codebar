@@ -16,18 +16,26 @@ import { Injectable } from '@angular/core';
   and Angular DI.
 */
 var HttpServicesProvider = /** @class */ (function () {
+    // serviceLink = "192.168.0.107:3000"
     function HttpServicesProvider(http) {
         this.http = http;
+        this.serviceLink = "macrobible.fr.openode.io";
         console.log('Hello HttpServicesProvider Provider');
     }
     HttpServicesProvider.prototype.getOne = function (id) {
-        return this.http.get("http://192.168.0.107:3000/api/product/" + id);
+        return this.http.get("http://" + this.serviceLink + "/api/product/" + id);
     };
     HttpServicesProvider.prototype.createProduct = function (product) {
-        return this.http.post("http://192.168.0.107:3000/api/product", product);
+        return this.http.post("http://" + this.serviceLink + "/api/product", product);
+    };
+    HttpServicesProvider.prototype.editProduct = function (product) {
+        return this.http.put("http://" + this.serviceLink + "/api/product/productUpdate", product);
+    };
+    HttpServicesProvider.prototype.deleteProduct = function (id) {
+        return this.http.get("http://" + this.serviceLink + "/api/product/delete/" + id);
     };
     HttpServicesProvider.prototype.getProducts = function () {
-        return this.http.get("http://192.168.0.107:3000/api/product");
+        return this.http.get("http://" + this.serviceLink + "/api/product");
     };
     HttpServicesProvider = __decorate([
         Injectable(),

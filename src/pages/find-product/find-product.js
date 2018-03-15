@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { AddProductPage } from '../add-product/add-product';
 import { HomePage } from '../home/home';
@@ -21,15 +21,15 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
  * Ionic pages and navigation.
  */
 var FindProductPage = /** @class */ (function () {
-    function FindProductPage(navCtrl, navParams, barcodeScanner, HttpServicesProvider) {
+    function FindProductPage(navCtrl, navParams, barcodeScanner, alertCtrl, HttpServicesProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.barcodeScanner = barcodeScanner;
+        this.alertCtrl = alertCtrl;
         this.HttpServicesProvider = HttpServicesProvider;
         this.find = { id: { value: "", valid: false, errorMessage: null } };
     }
     FindProductPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad FindProductPage');
     };
     FindProductPage.prototype.idValidate = function () {
         if (this.find.id.value === "") {
@@ -49,10 +49,10 @@ var FindProductPage = /** @class */ (function () {
                 _this.navCtrl.setRoot(DetailPage, { product: data["data"] });
             }
             else {
-                _this.msj = "Product Not Found";
+                _this.presentAlert("Producto no encontrado");
             }
         }, function (error) {
-            _this.msj = error;
+            _this.presentAlert("No hay conexion o hay un problema de red");
             console.log(error);
         });
     };
@@ -63,7 +63,8 @@ var FindProductPage = /** @class */ (function () {
             _this.find.id.value = barcodeData.text;
             _this.getOne();
         }, function (err) {
-            _this.error = err;
+            console.log(err);
+            _this.presentAlert("Error de lectura de codigo");
         });
     };
     FindProductPage.prototype.agregarProducto = function () {
@@ -71,6 +72,14 @@ var FindProductPage = /** @class */ (function () {
     };
     FindProductPage.prototype.cancel = function () {
         this.navCtrl.setRoot(HomePage);
+    };
+    FindProductPage.prototype.presentAlert = function (msj) {
+        var alert = this.alertCtrl.create({
+            title: 'Algo salio mal',
+            subTitle: msj,
+            buttons: ['Ok']
+        });
+        alert.present();
     };
     FindProductPage = __decorate([
         IonicPage(),
@@ -81,6 +90,7 @@ var FindProductPage = /** @class */ (function () {
         __metadata("design:paramtypes", [NavController,
             NavParams,
             BarcodeScanner,
+            AlertController,
             HttpServicesProvider])
     ], FindProductPage);
     return FindProductPage;

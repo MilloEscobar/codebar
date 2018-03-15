@@ -19,7 +19,9 @@
     <h4><span>Codigo: </span>{{product.id}}</h4>
   </div>
   <div padding>
-    <button *ngIf="!cameraOpen" ion-button full (click)="edit()">Editar</button>
-    <button *ngIf="!cameraOpen" ion-button full color="danger" (click)="delete()">Borrar</button>
+    <button margin-bottom ion-button full (click)="edit()">Editar</button>
+    <button margin-bottom ion-button full (click)="buy()">Comprar</button>
+    <button margin-bottom ion-button full (click)="sell()">Vender</button>
+    <button margin-bottom ion-button full color="danger" (click)="delete()">Borrar</button>
   </div>
 </ion-content>

@@ -9,17 +9,25 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+//services
+import { HttpServicesProvider } from '../providers/http-services/http-services';
+//providers
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { Camera } from '@ionic-native/camera';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { CameraPreview } from '@ionic-native/camera-preview';
+//pages
+import { MyApp } from './app.component';
 import { AddProductPage } from '../pages/add-product/add-product';
 import { FindProductPage } from '../pages/find-product/find-product';
-import { MyApp } from './app.component';
+import { EditPage } from '../pages/edit/edit';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { DetailPage } from '../pages/detail/detail';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpServicesProvider } from '../providers/http-services/http-services';
+import { BuyPage } from '../pages/buy/buy';
+import { SellPage } from '../pages/sell/sell';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -29,9 +37,12 @@ var AppModule = /** @class */ (function () {
                 MyApp,
                 HomePage,
                 AddProductPage,
+                EditPage,
                 FindProductPage,
                 ListPage,
-                DetailPage
+                DetailPage,
+                BuyPage,
+                SellPage
             ],
             imports: [
                 BrowserModule,
@@ -46,13 +57,16 @@ var AppModule = /** @class */ (function () {
                 ListPage,
                 DetailPage,
                 AddProductPage,
+                EditPage,
                 FindProductPage,
             ],
             providers: [
                 StatusBar,
                 BarcodeScanner,
-                Camera,
+                CameraPreview,
                 SplashScreen,
+                ScreenOrientation,
+                AndroidPermissions,
                 { provide: ErrorHandler, useClass: IonicErrorHandler },
                 HttpServicesProvider
             ]

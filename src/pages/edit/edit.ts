@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { HttpServicesProvider } from '../../providers/http-services/http-services';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
-
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { HomePage } from '../home/home';
+
+import { HttpServicesProvider } from '../../providers/http-services/http-services';
+
 import { DetailPage } from '../detail/detail';
 
 /**

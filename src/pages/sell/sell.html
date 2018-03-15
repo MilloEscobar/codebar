@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Ventade producto</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+<!--   <div class="image-wrapper">
+    <img [src]="urlImage">
+  </div> -->
+
+  <form padding>
+	<h2>{{product.name}}</h2>
+
+	<h4>Cantidad Actual: {{product.quantity}}</h4>
+	<h4>Total: {{quantity - (quantityToAdd.value*1)}}</h4>
+    <ion-item [class.ng-is-invalid]="quantityToAdd.touched && !quantityToAdd.valid" 
+              [class.ng-is-valid]="quantityToAdd.valid">
+      <ion-label floating>Cantidad</ion-label>
+      <ion-input requierd  type="number" name="quantityToAdd" 
+                (ionBlur)="quantityToAddValidate()"
+                [(ngModel)]="quantityToAdd.value" 
+                #quantityToAddModel="ngModel">   
+      </ion-input>
+    </ion-item>
+    <p ion-text padding-left padding-right class="no-margin" color="danger">
+      <span *ngIf="quantityToAddModel.touched && !quantityToAdd.valid">{{quantityToAdd.errorMessage}}</span>
+    </p>
+    
+    <button margin-top margin-bottom ion-button full type="submit" block color="success"
+              [disabled]="!quantityToAdd.valid"
+              (click)="updateProduct()">Editar Producto</button>
+    <button margin-top margin-bottom ion-button full (click)="cancel()" block color="danger">cancel</button>
+	</form >
+  
+</ion-content>

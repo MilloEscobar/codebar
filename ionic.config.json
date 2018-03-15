@@ -1,6 +1,6 @@
 {
   "name": "codeReader",
-  "app_id": "com.wildlemons.codereader",
+  "app_id": "com.wildlemonscr.codereader",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
